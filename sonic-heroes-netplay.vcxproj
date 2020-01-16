@@ -162,10 +162,12 @@
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="_Hook.hpp" />
+    <ClInclude Include="_ModStuff.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="_Hook.cpp" />
+    <ClCompile Include="_ModStuff.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

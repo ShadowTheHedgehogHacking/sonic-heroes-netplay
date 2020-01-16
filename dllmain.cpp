@@ -7,6 +7,7 @@
 #include "includes/SFML/Network.hpp"
 #include <thread>
 #include <future>
+#include "_ModStuff.hpp"
 
 
 
@@ -61,63 +62,40 @@ void DoIt()
 	char lastError = 0;
 	short timeOutCount = 0;
 
-	sf::TcpSocket* socket = NULL;
-	sf::TcpListener* listener = NULL;
-	sf::TcpSocket* client = NULL;
+	ConnectionManager* manager = new ConnectionManager;
 
 	while (running)
 	{
-		// TODO: put client listening and server reading here
-
-
 		if (Action.mode == 1) // If Game Mode is "in a menu"
 		{
 			if (Advertise.subMode == 11) // if Current Menu is 2P Menu
 			{
 				if (isHost)
 				{
-					if (!listener)
+					if (!manager->listen(53000))
 					{
-						listener = new sf::TcpListener;
-						listener = NULL;
-					}
-					listener->setBlocking(false); // Thread doesn't freeze while waiting for client
-					
-					if (listener->listen(53000) != sf::Socket::Done) // bind the listener to a port
-					{
-						// error...
+						//error
 					}
 
-					// accept a new connection
-					if (client)
+					if (!manager->accept())
 					{
-						delete client;
-						client = NULL;
-					}
-					client = new sf::TcpSocket;
-					client->setBlocking(false); // Thread doesn't freeze while waiting for packet
-					if (listener->accept(*client) != sf::Socket::Done)
-					{
-						// no new client or error
+						//no new client, or an error accepting
 					}
 				}
 				else
 				{
-					if (socket)
+					if (!manager->connection)
 					{
-						delete socket;
-						socket = NULL;
-					}
-					socket = new sf::TcpSocket;
-					socket->setBlocking(false); // Thread doesn't freeze while waiting for packet
-					sf::Socket::Status status = socket->connect("localhost", 53000);
-					if (status != sf::Socket::Done)
-					{
-						// error...
+						if (!manager->connect("localhost", 53000))
+						{
+							// error
+						}
 					}
 				}
 			}
 		}
 		Sleep(20);
 	}
+
+	delete manager;
 }

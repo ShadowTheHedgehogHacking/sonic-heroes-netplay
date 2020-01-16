@@ -21,12 +21,18 @@
     <ClInclude Include="_Hook.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="_ModStuff.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="_Hook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_ModStuff.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
